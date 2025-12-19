@@ -1,0 +1,3 @@
+plugins:
+  debang_lints:
+    path: ../

@@ -1,0 +1,25 @@
+name: debang_lints
+description: Analyzer plugin that enforces descriptive assertion messages for the debang package. Validates minimum message length for .debang() and Debang() to improve code quality and debugging.
+version: 1.0.0
+repository: https://github.com/pavluke/debang_lints
+homepage: https://github.com/pavluke/debang_lints
+issue_tracker: https://github.com/pavluke/debang_lints/issues
+
+topics:
+  - linter
+  - analyzer
+  - code-quality
+  - debang
+  - static-analysis
+
+environment:
+  sdk: ^3.6.0
+
+dependencies:
+  analysis_server_plugin: ^0.3.4
+  analyzer: ^9.0.0
+
+dev_dependencies:
+  lints: ^6.0.0
+
+plugin_type: analyzer_plugin
