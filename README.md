@@ -2,7 +2,7 @@
 
 [![Pub](https://img.shields.io/pub/v/debang_lints.svg)](https://pub.dartlang.org/packages/debang_lints)
 
-[En](README.md) | **Ru**
+**En** | [Ru](README_RU.md)
 
 A custom Dart analyzer plugin that enforces minimum message length for
 `debang()` calls.
@@ -27,7 +27,6 @@ write meaningful debug output.
 - ✅ Validates message length for `.debang()` extension calls
 - ✅ Works in IDE (VS Code, IntelliJ, Android Studio)
 - ✅ Works with `dart analyze` CLI
-- ✅ Compatible with CI/CD pipelines
 
 ## Installation
 
@@ -57,10 +56,7 @@ import 'package:debang/debang.dart';
 
 void main() {
   int? value;
-
-  value.debang('');  // Error: assertion message too short
-
-  final result = value ?? Debang("won't be null");  // Error: assertion message too short
+  value.debang("Won't be null");  // Error: assertion message too short
 }
 ```
 
@@ -71,7 +67,6 @@ import 'package:debang/debang.dart';
 
 void main() {
   int? value;
-
   value.debang("Value won't be null because it write after authorization into local storage.");  // OK
 }
 ```

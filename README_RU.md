@@ -2,7 +2,7 @@
 
 [![Pub](https://img.shields.io/pub/v/debang_lints.svg)](https://pub.dartlang.org/packages/debang_lints)
 
-**En** | [Ru](README_RU.md)
+[En](README.md) | **Ru**
 
 Кастомный плагин анализатора Dart, который проверяет минимальную длину сообщений
 для `debang()`.
@@ -57,7 +57,6 @@ import 'package:debang/debang.dart';
 
 void main() {
   int? value;
-
   value.debang('Не будет null.');  // Ошибка: сообщение слишком короткое
 }
 ```
@@ -69,7 +68,6 @@ import 'package:debang/debang.dart';
 
 void main() {
   int? value;
-
   value.debang('Переменная не будет null, поскольку после авторизации значение будет записано в локальное хранилище.');  // OK
 }
 ```
