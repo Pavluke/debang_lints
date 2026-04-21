@@ -4,7 +4,7 @@
 
 [En](README.md) | **Ru**
 
-Кастомный плагин анализатора Dart, который проверяет минимальную длину сообщений
+Кастомный плагин анализатора Dart, который проверяет качество сообщений
 для `debang()`.
 
 ## О пакете Debang
@@ -15,30 +15,43 @@
 Этот линтер обеспечивает описательность и осмысленность всех
 сообщений-утверждений.
 
+<p align="center">Для лучшего понимания работы перейдите на <a href="https://pavluke.github.io/packages/?pkg=debang_lints">демо</a> страницу</p>
+
+<div align="center">
+  <a href="https://pavluke.github.io/packages/?pkg=debang_lints" 
+     style="background: #10ac84; color: white; padding: 12px 24px; 
+            text-decoration: none; border-radius: 6px; 
+            font-weight: bold; display: inline-block;">
+    Открыть демо
+  </a>
+</div>
+
 ## Описание
 
 Плагин помогает поддерживать качество кода, гарантируя, что все отладочные
 сообщения, переданные в `debang()`, являются описательными и полезными. Короткие
 невнятные сообщения вроде `''` (пустая строка) или `'не будет null'` помечаются
-как ошибки, побуждая разработчиков писать осмысленный отладочный вывод.
+как ошибки, а сообщения без имени автора — помечаются отдельно, побуждая
+разработчиков писать осмысленный и ответственный отладочный вывод.
 
-## Возможности
+## Правила
 
-- ✅ Проверяет длину сообщений для конструктора `Debang()`
-- ✅ Проверяет длину сообщений для расширения `.debang()`
-- ✅ Работает в IDE (VS Code, IntelliJ, Android Studio)
-- ✅ Работает с `dart analyze` CLI
+| Правило | Описание | По умолчанию |
+|---|---|---|
+| `debang_message_too_short` | Сообщение должно быть не короче заданного количества символов | отключено |
+| `debang_missing_author` | Сообщение должно начинаться с имени автора `(username):` | отключено |
 
 ## Установка
 
-### 1. Добавьте в проект
-
-**analysis_options.yaml:**
+### 1. Добавьте в `analysis_options.yaml`
 
 ```yaml
 plugins:
-  debang_lints: ^1.0.0
+  debang_lints: ^1.1.0
 ```
+
+> **Важно:** В новой системе плагинов Dart линт-правила отключены по умолчанию.
+> Каждое правило нужно явно включить в секции `diagnostics:`.
 
 ### 2. Перезапустите Analysis Server
 
@@ -50,7 +63,9 @@ plugins:
 
 ## Примеры использования
 
-### ❌ Плохо (вызывает ошибку)
+### `debang_message_too_short`
+
+#### ❌ Плохо (вызывает ошибку)
 
 ```dart
 import 'package:debang/debang.dart';
@@ -61,32 +76,60 @@ void main() {
 }
 ```
 
-### ✅ Хорошо (проходит проверку)
+#### ✅ Хорошо (проходит проверку)
 
 ```dart
 import 'package:debang/debang.dart';
 
 void main() {
   int? value;
-  value.debang('Переменная не будет null, поскольку после авторизации значение будет записано в локальное хранилище.');  // OK
+  value.debang(
+    'Переменная не будет null, поскольку после авторизации значение будет записано в локальное хранилище.'
+  );  // OK
+}
+```
+
+---
+
+### `debang_missing_author`
+
+Сообщение должно начинаться с `(username):` — по аналогии с соглашением `TODO(username):`.
+
+#### ❌ Плохо (вызывает ошибку)
+
+```dart
+import 'package:debang/debang.dart';
+
+void main() {
+  int? value;
+  value.debang('Не будет null после авторизации');  // Ошибка: отсутствует имя автора
+}
+```
+
+#### ✅ Хорошо (проходит проверку)
+
+```dart
+import 'package:debang/debang.dart';
+
+void main() {
+  int? value;
+  value.debang('(ivan): Не будет null, значение записывается после авторизации');  // OK
 }
 ```
 
 ## Changelog
 
 Список изменений доступен в файле
-[CHANGELOG.md](https://github.com/pavluke/debang_lints/blob/main/CHANGELOG.md)
+[CHANGELOG.md](https://github.com/pavluke/debang_lints/blob/main/CHANGELOG.md).
 
 ## Contributions
 
-Не стесняйтесь вносить свой вклад в этот проект.
-
-Если вы обнаружили ошибку или хотите добавить новую функцию, но не знаете, как
-ее исправить/внедрить, пожалуйста, напишите в
-[issues](https://github.com/pavluke/debang_lints/issues). Если вы исправили
-ошибку или внедрили какую-либо функцию, пожалуйста, сделайте
+Не стесняйтесь вносить свой вклад в этот проект. Если вы обнаружили ошибку или
+хотите добавить новую функцию, но не знаете, как её реализовать, пожалуйста,
+напишите в [issues](https://github.com/pavluke/debang_lints/issues). Если вы
+исправили ошибку или внедрили функцию, сделайте
 [pull request](https://github.com/pavluke/debang_lints/pulls).
 
 ## Лицензия
 
-MIT License - см. файл LICENSE
+MIT License — см. файл LICENSE.

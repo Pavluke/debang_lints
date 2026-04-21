@@ -90,16 +90,14 @@ class _Visitor extends SimpleAstVisitor<void> {
     final message = expr.stringValue;
     if (message == null) return;
 
-    if (message.length >= minLength) return;
+    final authorPrefix = RegExp(r'^\([a-zA-Z0-9._-]+\):\s*');
+    final content = message.replaceFirst(authorPrefix, '').trim();
+
+    if (content.length >= minLength) return;
 
     final unit = context.currentUnit;
     if (unit == null) return;
 
-    final reporter = unit.diagnosticReporter;
-
-    reporter.atNode(
-      expr,
-      rule.diagnosticCode,
-    );
+    unit.diagnosticReporter.atNode(expr, rule.diagnosticCode);
   }
 }

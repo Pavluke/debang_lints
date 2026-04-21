@@ -1,8 +1,8 @@
 name: debang_lints_example
-version: 0.0.1
+version: 1.1.0
 publish_to: none
 environment:
-  sdk: ">=3.0.0 <4.0.0"
+  sdk: ">=3.6.0 <4.0.0"
 
 dependencies:
-  debang: ^1.0.0
+  debang: ^1.0.4
